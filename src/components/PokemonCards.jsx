@@ -64,7 +64,7 @@ export default function PokemonCards({
             const newPokemons = [];
             let i = 0;
             while (i < pokemonAmount) {
-                const randomNumber = Math.floor(Math.random() * 100) + 1;
+                const randomNumber = Math.floor(Math.random() * 1000) + 1;
                 if (
                     !newPokemons.some((pokemon) => pokemon.id === randomNumber)
                 ) {
