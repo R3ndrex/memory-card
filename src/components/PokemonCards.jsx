@@ -1,24 +1,41 @@
 import { useState, useEffect } from "react";
 
-export default function PokemonCards({ setPoints, pokemonAmount }) {
+function shuffleArray(array) {
+    const newArray = [...array];
+    for (var i = newArray.length - 1; i >= 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = newArray[i];
+        newArray[i] = newArray[j];
+        newArray[j] = temp;
+    }
+    return newArray;
+}
+
+export default function PokemonCards({
+    setPoints,
+    pokemonAmount,
+    restartAmount,
+}) {
     const [pokemons, setPokemons] = useState([]);
 
     function handleCardClick(clickedPokemon) {
         if (!clickedPokemon.clicked) {
             setPoints((prev) => ++prev);
-            setPokemons((prev) =>
-                prev.map((pokemon) => {
+            setPokemons((prev) => {
+                const shufled = shuffleArray(prev);
+                return shufled.map((pokemon) => {
                     return pokemon.name === clickedPokemon.name
                         ? { ...pokemon, clicked: true }
                         : pokemon;
-                })
-            );
+                });
+            });
         } else {
-            setPokemons((prev) =>
-                prev.map((pokemon) => {
+            setPokemons((prev) => {
+                const shufled = shuffleArray(prev);
+                return shufled.map((pokemon) => {
                     return { ...pokemon, clicked: false };
-                })
-            );
+                });
+            });
             setPoints(0);
         }
     }
@@ -69,14 +86,17 @@ export default function PokemonCards({ setPoints, pokemonAmount }) {
         return () => {
             active = false;
         };
-    }, [pokemonAmount]);
+    }, [pokemonAmount, restartAmount]);
+
     return (
         <section className="pokemon-cards">
             {pokemons.map((pokemon) => (
                 <div
                     className="pokemon-card"
                     key={pokemon.name}
-                    onClick={() => handleCardClick(pokemon)}
+                    onClick={() => {
+                        handleCardClick(pokemon);
+                    }}
                 >
                     <img src={pokemon.sprite} alt={pokemon.name} />
                     <p> {pokemon.name}</p>
