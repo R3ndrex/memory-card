@@ -52,7 +52,8 @@ export default function PokemonCards({
                 return {
                     id: id,
                     name: json.name,
-                    sprite: json.sprites.front_default,
+                    sprite: json.sprites.other["official-artwork"]
+                        .front_default,
                     clicked: false,
                 };
             } catch (e) {
