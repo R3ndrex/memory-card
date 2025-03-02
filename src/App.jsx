@@ -35,7 +35,7 @@ function App() {
                         >
                             <option value={5}>Easy</option>
                             <option value={10}>Normal</option>
-                            <option value={25}>Hard</option>
+                            <option value={22}>Hard</option>
                         </select>
                         <button onClick={handleRestart}>Restart</button>
                     </div>
