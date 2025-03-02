@@ -62,7 +62,6 @@ export default function PokemonCards({ setPoints, pokemonAmount }) {
         FillPokemonArray()
             .then((resolve) => {
                 if (active) {
-                    console.log(1);
                     setPokemons(resolve);
                 }
             })
