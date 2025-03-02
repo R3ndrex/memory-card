@@ -1,23 +1,60 @@
 #root {
     text-align: center;
     width: 100%;
+    position: relative;
 }
 .pokemon-card {
     display: flex;
     flex-direction: column;
     border-radius: 0.5rem;
-    overflow-wrap: anywhere;
+    border: 1px solid black;
+    padding: 0.5rem;
+    word-break: break-all;
     > p {
+        display: flex;
+        justify-content: center;
         margin: 0;
         padding: 1rem;
-        background-color: brown;
-    }
-    img {
-        border: 1px solid brown;
     }
 }
 .pokemon-cards {
+    cursor: pointer;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1rem));
+    padding: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1rem;
+    .pokemon-card:nth-child(3n) {
+        background-color: rgb(66, 66, 255);
+    }
+    .pokemon-card:nth-child(3n-1) {
+        background-color: rgb(61, 180, 61);
+    }
+    .pokemon-card:nth-child(3n-2) {
+        background-color: rgb(180, 61, 61);
+    }
+}
+.winner-screen {
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.3);
+    align-items: center;
+    > button {
+        -webkit-box-shadow: 0px 0px 40px 0px rgba(255, 255, 255, 0.75);
+        -moz-box-shadow: 0px 0px 40px 0px rgba(255, 255, 255, 0.75);
+        box-shadow: 0px 0px 40px 0px rgba(255, 255, 255, 0.75);
+        transition: all 90ms;
+    }
+    > button:hover {
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+    }
 }
