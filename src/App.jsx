@@ -28,7 +28,6 @@ function App() {
                         <select
                             id="gamemode"
                             onChange={({ target }) => {
-                                console.log(target.value);
                                 setPokemonAmount(target.value);
                             }}
                             name="gamemode"
