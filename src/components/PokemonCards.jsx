@@ -11,11 +11,7 @@ function shuffleArray(array) {
     return newArray;
 }
 
-export default function PokemonCards({
-    setPoints,
-    pokemonAmount,
-    restartAmount,
-}) {
+export default function PokemonCards({ setPoints, cardAmount, restartAmount }) {
     const [pokemons, setPokemons] = useState([]);
 
     function handleCardClick(clickedPokemon) {
@@ -66,7 +62,7 @@ export default function PokemonCards({
 
         async function FillPokemonArray() {
             const randomNumbers = new Set();
-            while (randomNumbers.size < pokemonAmount) {
+            while (randomNumbers.size < cardAmount) {
                 randomNumbers.add(Math.floor(Math.random() * 1000) + 1);
             }
             const promises = Array.from(randomNumbers).map((number) =>
@@ -83,7 +79,7 @@ export default function PokemonCards({
         return () => {
             active = false;
         };
-    }, [pokemonAmount, restartAmount]);
+    }, [cardAmount, restartAmount]);
 
     return (
         <section className="pokemon-cards">
