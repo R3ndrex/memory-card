@@ -57,31 +57,27 @@ export default function PokemonCards({
                     clicked: false,
                 };
             } catch (e) {
-                console.error(e.message);
+                console.error(
+                    `Error while fetching pokemon ${id}:${e.message}`
+                );
+                throw e;
             }
         }
 
         async function FillPokemonArray() {
-            const newPokemons = [];
-            let i = 0;
-            while (i < pokemonAmount) {
-                const randomNumber = Math.floor(Math.random() * 1000) + 1;
-                if (
-                    !newPokemons.some((pokemon) => pokemon.id === randomNumber)
-                ) {
-                    const result = await fetchData(randomNumber);
-                    newPokemons.push(result);
-                    i++;
-                }
+            const randomNumbers = new Set();
+            while (randomNumbers.size < pokemonAmount) {
+                randomNumbers.add(Math.floor(Math.random() * 1000) + 1);
             }
-            return newPokemons;
+            const promises = Array.from(randomNumbers).map((number) =>
+                fetchData(number)
+            );
+            return await Promise.all(promises);
         }
         let active = true;
         FillPokemonArray()
-            .then((resolve) => {
-                if (active) {
-                    setPokemons(resolve);
-                }
+            .then((result) => {
+                if (active) setPokemons(result);
             })
             .catch((reject) => console.error(reject));
         return () => {
