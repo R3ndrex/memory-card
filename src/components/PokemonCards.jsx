@@ -16,25 +16,27 @@ export default function PokemonCards({ setPoints, cardAmount, restartAmount }) {
     const [pokemons, setPokemons] = useState([]);
     const pokemonAmount = 1000;
     function handleCardClick(clickedPokemon) {
-        if (!clickedPokemon.clicked) {
-            setPoints((prev) => ++prev);
-            setPokemons((prev) => {
-                const shufled = shuffleArray(prev);
-                return shufled.map((pokemon) => {
-                    return pokemon.name === clickedPokemon.name
-                        ? { ...pokemon, clicked: true }
-                        : pokemon;
+        return () => {
+            if (!clickedPokemon.clicked) {
+                setPoints((prev) => ++prev);
+                setPokemons((prev) => {
+                    const shufled = shuffleArray(prev);
+                    return shufled.map((pokemon) => {
+                        return pokemon.name === clickedPokemon.name
+                            ? { ...pokemon, clicked: true }
+                            : pokemon;
+                    });
                 });
-            });
-        } else {
-            setPokemons((prev) => {
-                const shufled = shuffleArray(prev);
-                return shufled.map((pokemon) => {
-                    return { ...pokemon, clicked: false };
+            } else {
+                setPokemons((prev) => {
+                    const shufled = shuffleArray(prev);
+                    return shufled.map((pokemon) => {
+                        return { ...pokemon, clicked: false };
+                    });
                 });
-            });
-            setPoints(0);
-        }
+                setPoints(0);
+            }
+        };
     }
 
     useEffect(() => {
@@ -92,9 +94,7 @@ export default function PokemonCards({ setPoints, cardAmount, restartAmount }) {
                         <div
                             className="pokemon-card"
                             key={pokemon.name}
-                            onClick={() => {
-                                handleCardClick(pokemon);
-                            }}
+                            onClick={handleCardClick(pokemon)}
                         >
                             <img src={pokemon.sprite} alt={pokemon.name} />
                             <p> {pokemon.name}</p>
