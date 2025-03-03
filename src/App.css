@@ -20,7 +20,13 @@
         margin: 0;
         padding: 1rem;
     }
+    transition: all 0.5s;
 }
+.pokemon-card:hover {
+    filter: brightness(90%);
+    transform: scale(1.05, 1.05);
+}
+
 .pokemon-cards {
     cursor: pointer;
     display: grid;
