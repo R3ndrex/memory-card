@@ -1,11 +1,12 @@
 import PokemonCards from "./components/PokemonCards";
 import WinnerScreen from "./components/WinnerScreen";
 import "./App.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 function App() {
     const [points, setPoints] = useState(0);
     const [restarts, setRestarts] = useState(0);
+    let ref = useRef(0);
     const [pokemonAmount, setPokemonAmount] = useState(5);
     const handleRestart = () => {
         setRestarts((prev) => ++prev);
@@ -15,7 +16,7 @@ function App() {
     return (
         <>
             <header>
-                <h1>Pokemon Memory Game</h1>
+                <h1>Pokémon Memory Game</h1>
                 <nav>
                     <div>
                         {" "}
@@ -24,18 +25,18 @@ function App() {
                     </div>
 
                     <div>
-                        <label htmlFor="gamemode">Difficulty</label>
-                        <select
-                            id="gamemode"
-                            onChange={({ target }) => {
-                                setPokemonAmount(target.value);
-                            }}
-                            name="gamemode"
+                        <input
+                            type="number"
+                            name="pokemon-amount"
+                            id="pokemon-amount"
+                            ref={ref}
+                            defaultValue={pokemonAmount}
+                        />
+                        <button
+                            onClick={() => setPokemonAmount(ref.current.value)}
                         >
-                            <option value={5}>Easy</option>
-                            <option value={10}>Normal</option>
-                            <option value={22}>Hard</option>
-                        </select>
+                            Set Amount
+                        </button>
                         <button onClick={handleRestart}>Restart</button>
                     </div>
                 </nav>
