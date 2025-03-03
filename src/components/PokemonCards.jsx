@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import pokeball from "../assets/pokeball.svg";
 
 function shuffleArray(array) {
     const newArray = [...array];
@@ -13,7 +14,7 @@ function shuffleArray(array) {
 
 export default function PokemonCards({ setPoints, cardAmount, restartAmount }) {
     const [pokemons, setPokemons] = useState([]);
-
+    const pokemonAmount = 1000;
     function handleCardClick(clickedPokemon) {
         if (!clickedPokemon.clicked) {
             setPoints((prev) => ++prev);
@@ -63,7 +64,9 @@ export default function PokemonCards({ setPoints, cardAmount, restartAmount }) {
         async function FillPokemonArray() {
             const randomNumbers = new Set();
             while (randomNumbers.size < cardAmount) {
-                randomNumbers.add(Math.floor(Math.random() * 1000) + 1);
+                randomNumbers.add(
+                    Math.floor(Math.random() * pokemonAmount) + 1
+                );
             }
             const promises = Array.from(randomNumbers).map((number) =>
                 fetchData(number)
@@ -83,18 +86,24 @@ export default function PokemonCards({ setPoints, cardAmount, restartAmount }) {
 
     return (
         <section className="pokemon-cards">
-            {pokemons.map((pokemon) => (
-                <div
-                    className="pokemon-card"
-                    key={pokemon.name}
-                    onClick={() => {
-                        handleCardClick(pokemon);
-                    }}
-                >
-                    <img src={pokemon.sprite} alt={pokemon.name} />
-                    <p> {pokemon.name}</p>
+            {pokemons.length !== 0 ? (
+                pokemons.map((pokemon) => (
+                    <div
+                        className="pokemon-card"
+                        key={pokemon.name}
+                        onClick={() => {
+                            handleCardClick(pokemon);
+                        }}
+                    >
+                        <img src={pokemon.sprite} alt={pokemon.name} />
+                        <p> {pokemon.name}</p>
+                    </div>
+                ))
+            ) : (
+                <div className="loading-container">
+                    <img src={pokeball} className="spinner"></img>
                 </div>
-            ))}
+            )}
         </section>
     );
 }
