@@ -12,6 +12,14 @@ function App() {
         setRestarts((prev) => ++prev);
         setPoints(0);
     };
+    function validateInputChange({ target }) {
+        target.setCustomValidity("");
+        if (target.value % 1 !== 0) {
+            target.setCustomValidity("Number must be an integer");
+        }
+        setInputValue(target.value);
+        target.reportValidity();
+    }
     return (
         <>
             <header>
@@ -31,16 +39,7 @@ function App() {
                             id="pokemon-amount"
                             placeholder="Enter card amount"
                             value={inputValue}
-                            onChange={({ target }) => {
-                                target.setCustomValidity("");
-                                if (target.value % 1 !== 0) {
-                                    target.setCustomValidity(
-                                        "Number must be an integer"
-                                    );
-                                }
-                                setInputValue(target.value);
-                                target.reportValidity();
-                            }}
+                            onChange={validateInputChange}
                         />
                         <button
                             disabled={
