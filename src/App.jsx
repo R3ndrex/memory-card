@@ -1,18 +1,17 @@
 import PokemonCards from "./components/PokemonCards";
 import WinnerScreen from "./components/WinnerScreen";
 import "./App.css";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 function App() {
     const [points, setPoints] = useState(0);
     const [restarts, setRestarts] = useState(0);
-    let ref = useRef(0);
     const [cardAmount, setCardAmount] = useState(5);
+    const [inputValue, setInputValue] = useState(cardAmount);
     const handleRestart = () => {
         setRestarts((prev) => ++prev);
         setPoints(0);
     };
-
     return (
         <>
             <header>
@@ -25,23 +24,31 @@ function App() {
 
                     <div>
                         <input
+                            min={3}
+                            max={100}
                             type="number"
                             name="pokemon-amount"
                             id="pokemon-amount"
                             placeholder="Enter card amount"
-                            ref={ref}
-                            defaultValue={cardAmount}
+                            value={inputValue}
+                            onChange={({ target }) => {
+                                target.setCustomValidity("");
+                                if (
+                                    target.value < 3 ||
+                                    target.value % 1 !== 0
+                                ) {
+                                    target.setCustomValidity(
+                                        "Cant have this amount of cards"
+                                    );
+                                    target.reportValidity();
+                                }
+                                setInputValue(target.value);
+                            }}
                         />
                         <button
+                            disabled={inputValue < 3 || inputValue % 1 !== 0}
                             onClick={() => {
-                                if (
-                                    Number(ref.current.value) < 3 ||
-                                    Number(ref.current.value) % 1 !== 0
-                                )
-                                    return console.error(
-                                        `Can't have this card amount`
-                                    );
-                                setCardAmount(Number(ref.current.value));
+                                setCardAmount(inputValue);
                                 setPoints(0);
                             }}
                         >
