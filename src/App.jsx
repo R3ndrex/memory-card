@@ -25,7 +25,7 @@ function App() {
                     <div>
                         <input
                             min={3}
-                            max={100}
+                            max={50}
                             type="number"
                             name="pokemon-amount"
                             id="pokemon-amount"
