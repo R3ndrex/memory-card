@@ -43,9 +43,12 @@ function App() {
                             }}
                         />
                         <button
-                            disabled={inputValue < 3 || inputValue % 1 !== 0}
+                            disabled={
+                                Number(inputValue) < 3 ||
+                                Number(inputValue) % 1 !== 0
+                            }
                             onClick={() => {
-                                setCardAmount(inputValue);
+                                setCardAmount(Number(inputValue));
                                 setPoints(0);
                             }}
                         >
