@@ -33,16 +33,13 @@ function App() {
                             value={inputValue}
                             onChange={({ target }) => {
                                 target.setCustomValidity("");
-                                if (
-                                    target.value < 3 ||
-                                    target.value % 1 !== 0
-                                ) {
+                                if (target.value % 1 !== 0) {
                                     target.setCustomValidity(
-                                        "Cant have this amount of cards"
+                                        "Number must be an integer"
                                     );
-                                    target.reportValidity();
                                 }
                                 setInputValue(target.value);
+                                target.reportValidity();
                             }}
                         />
                         <button
