@@ -85,25 +85,27 @@ export default function PokemonCards({ setPoints, cardAmount, restartAmount }) {
     }, [cardAmount, restartAmount]);
 
     return (
-        <section className="pokemon-cards">
+        <>
             {pokemons.length !== 0 ? (
-                pokemons.map((pokemon) => (
-                    <div
-                        className="pokemon-card"
-                        key={pokemon.name}
-                        onClick={() => {
-                            handleCardClick(pokemon);
-                        }}
-                    >
-                        <img src={pokemon.sprite} alt={pokemon.name} />
-                        <p> {pokemon.name}</p>
-                    </div>
-                ))
+                <section className="pokemon-cards">
+                    {pokemons.map((pokemon) => (
+                        <div
+                            className="pokemon-card"
+                            key={pokemon.name}
+                            onClick={() => {
+                                handleCardClick(pokemon);
+                            }}
+                        >
+                            <img src={pokemon.sprite} alt={pokemon.name} />
+                            <p> {pokemon.name}</p>
+                        </div>
+                    ))}
+                </section>
             ) : (
                 <div className="loading-container">
                     <img src={pokeball} className="spinner"></img>
                 </div>
             )}
-        </section>
+        </>
     );
 }
