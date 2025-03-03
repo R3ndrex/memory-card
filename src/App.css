@@ -31,7 +31,7 @@
     cursor: pointer;
     display: grid;
     padding: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1rem;
     .pokemon-card:nth-child(3n) {
         background-color: rgb(66, 66, 255);
@@ -66,5 +66,18 @@
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
         box-shadow: none;
+    }
+}
+@media (width<600px) {
+    .pokemon-cards {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    nav {
+        & div:nth-child(2) {
+            display: grid;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+        }
     }
 }
