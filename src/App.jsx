@@ -8,10 +8,11 @@ function App() {
     const [restarts, setRestarts] = useState(0);
     const [cardAmount, setCardAmount] = useState(5);
     const [inputValue, setInputValue] = useState(cardAmount);
-    const handleRestart = () => {
-        setRestarts((prev) => ++prev);
-        setPoints(0);
-    };
+    const [highScore, setHighScore] = useState(points);
+
+    if (points > highScore) {
+        setHighScore(points);
+    }
     function validateInputChange({ target }) {
         target.setCustomValidity("");
         if (target.value % 1 !== 0) {
@@ -20,13 +21,18 @@ function App() {
         setInputValue(target.value);
         target.reportValidity();
     }
+    const handleRestart = () => {
+        setRestarts((prev) => ++prev);
+        setPoints(0);
+    };
     return (
         <>
             <header>
                 <h1>Pokémon Memory Game</h1>
                 <nav>
-                    <div>
+                    <div className="scores">
                         <div>{`Points: ${points}`}</div>
+                        <div>{`High Score: ${highScore}`}</div>
                         <div>{`Restarts: ${restarts}`} </div>
                     </div>
 
